@@ -9,7 +9,10 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.google.gson.Gson;    
+import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -22,17 +25,17 @@ public class Restcalls {
             
            System.out.println("in users "+ apiResponse.getResponse()+ " success "+apiResponse.isSuccess());
  try{
-//            HttpResponse <String> httpResponse = Unirest.get("https://apistagging.astroriver.com/api/country").asString();
-//            System.out.println( httpResponse.getHeaders().get("Content-Type"));
-//            System.out.println(httpResponse.getBody());
-            Gson gson = new Gson();
-                Users users;
-                users = gson.fromJson(apiResponse.getResponse().getBody().toString(),Users.class);
-            System.out.println("usersList "+users);
+              List<UsersList> dataResponses = new ArrayList<>();
+
+//                users = gson.fromJson(apiResponse.getResponse().getBody().toString(),Users.class);
+                 GsonBuilder gsonBuilder = new GsonBuilder();
+                            Gson gson = gsonBuilder.create();
+                           dataResponses = Arrays.asList(gson.fromJson(apiResponse.getResponse().getBody().toString(), UsersList[].class));
+    
+            System.out.println("usersList "+dataResponses.get(0).getEmail());
         }
         catch(Exception e){
             e.printStackTrace();
         }
-        System.out.println("Hello World!");
     }
 }
