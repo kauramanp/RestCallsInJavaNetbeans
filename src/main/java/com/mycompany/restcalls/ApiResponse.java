@@ -23,7 +23,6 @@ public class ApiResponse {
     public void ApiResponse(boolean success, HttpResponse<String> response){
         this.success = success;        
         this.response = response;
-
     }
 
     public HttpResponse<String> getResponse() {

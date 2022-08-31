@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven 3.8.5
+Built-By: HP
+Build-Jdk: 18.0.1.1
+Class-Path: unirest-java-1.4.9.jar httpclient-4.5.2.jar httpcore-4.4.4.j
+ ar commons-logging-1.2.jar commons-codec-1.9.jar httpasyncclient-4.1.1.
+ jar httpcore-nio-4.4.4.jar httpmime-4.5.2.jar json-20160212.jar gson-2.
+ 9.0.jar
+Main-Class: com.aman.restcalls
+
