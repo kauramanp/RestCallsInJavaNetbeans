@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,15 +20,16 @@ public class UsersListFrame extends javax.swing.JFrame {
 
     List<UsersList> dataResponses = new ArrayList<>();
     static UsersListFrame usersListFrame;
+     
 
     /**
      * Creates new form UsersListFrame
      */
     public UsersListFrame() {
         initComponents();
-        ImageIcon icon = new ImageIcon("C:\\Users\\HP\\Documents\\NetBeansProjects\\restcalls\\src\\main\\java\\com\\mycompany\\restcalls\\missionBg.jpg");
-        jLabel1.setIcon(icon);
+        
         getRequestData();
+       
     }
 
     public void getRequestData() {
@@ -39,6 +41,20 @@ public class UsersListFrame extends javax.swing.JFrame {
             Gson gson = gsonBuilder.create();
             dataResponses = Arrays.asList(gson.fromJson(apiResponse.getResponse().getBody().toString(), UsersList[].class));
             System.out.println("usersList " + dataResponses.get(0).getEmail());
+             String[] headerNames = {"Sr.no", "Name", "Email", "Gender"};
+        DefaultTableModel model = new DefaultTableModel(null, headerNames);
+
+        table.setModel(model);
+        model.setRowCount(0);
+        Object[] row = new Object[4];
+             for (UsersList item : dataResponses) {
+                System.out.println(item);
+                row[0] = item.getId();
+                row[1] = item.getName();
+                row[2] = item.getEmail();
+                row[3] = item.getGender();
+                model.addRow(row);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,26 +69,27 @@ public class UsersListFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(table);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(6, 6, 378, 288);
-
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 400, 300);
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(10, 10, 375, 275);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -115,9 +132,8 @@ public class UsersListFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 
 }
