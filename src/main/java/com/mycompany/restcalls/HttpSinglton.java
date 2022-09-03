@@ -5,8 +5,11 @@
 package com.mycompany.restcalls;
 
 import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  *
@@ -26,6 +29,24 @@ public class HttpSinglton {
         ApiResponse apiResponse = new ApiResponse();
         try {
             httpResponse = Unirest.get(baseUrl + url).asString();
+            apiResponse.setSuccess(true);
+            apiResponse.setResponse(httpResponse);
+        } catch (UnirestException exception) {
+            apiResponse.setSuccess(false);
+            apiResponse.setResponse(httpResponse);
+        }
+        return apiResponse;
+
+    }
+
+    public ApiResponse postRequest(String url, Map<String, String> headers, Map<String, Object> fields) {
+        HttpResponse httpResponse = null;
+        ApiResponse apiResponse = new ApiResponse();
+        try {
+            HttpResponse<JsonNode> jsonResponse
+                    = Unirest.post(baseUrl+url)
+                            .headers(headers).fields(fields).asJson();
+            System.out.println(" jsonResponse "+jsonResponse.getBody());
             apiResponse.setSuccess(true);
             apiResponse.setResponse(httpResponse);
         } catch (UnirestException exception) {

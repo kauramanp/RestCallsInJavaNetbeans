@@ -145,6 +145,7 @@
         </Property>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Male"/>
+        <Property name="actionCommand" type="java.lang.String" value="male"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbFemale">
@@ -153,6 +154,7 @@
           <ComponentRef name="genderGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Female"/>
+        <Property name="actionCommand" type="java.lang.String" value="female"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
@@ -163,6 +165,7 @@
     <Component class="javax.swing.JToggleButton" name="ActiveInactive">
       <Properties>
         <Property name="text" type="java.lang.String" value="Active"/>
+        <Property name="actionCommand" type="java.lang.String" value="active"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnAdd">

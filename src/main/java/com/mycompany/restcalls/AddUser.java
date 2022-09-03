@@ -4,7 +4,10 @@
  */
 package com.mycompany.restcalls;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
+import org.json.JSONObject;
 
 /**
  *
@@ -63,13 +66,16 @@ public class AddUser extends javax.swing.JFrame {
         genderGroup.add(rbMale);
         rbMale.setSelected(true);
         rbMale.setText("Male");
+        rbMale.setActionCommand("male");
 
         genderGroup.add(rbFemale);
         rbFemale.setText("Female");
+        rbFemale.setActionCommand("female");
 
         jLabel4.setText("Active/Inactive");
 
         ActiveInactive.setText("Active");
+        ActiveInactive.setActionCommand("active");
 
         btnAdd.setText("Add");
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -152,14 +158,28 @@ public class AddUser extends javax.swing.JFrame {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         // TODO add your handling code here:
-        if(tvName.getText().isEmpty()){
+        if (tvName.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Enter name");
             return;
         }
-        if(tvEmail.getText().isEmpty()){
+        if (tvEmail.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Enter email");
             return;
         }
+        System.out.println("genderGroup.getSelection().getActionCommand() "+genderGroup.getSelection().getActionCommand());
+        Map<String, String> headers = new HashMap<>();
+        headers.put("accept", "application/json");
+        headers.put("Authorization", "Bearer 0442cd49bd8e88132f322a0fa6b6c1e758ece0303defed5846efeca14d3a4e81");
+
+        Map<String, Object> fields = new HashMap<>();
+        fields.put("email", tvEmail.getText());
+        fields.put("name", tvName.getText());
+
+        fields.put("gender", genderGroup.getSelection().getActionCommand());
+        fields.put("status", ActiveInactive.getActionCommand());
+
+        HttpSinglton httpSinglton = new HttpSinglton();
+        ApiResponse apiResponse = httpSinglton.postRequest("users", headers, fields);
     }//GEN-LAST:event_btnAddMouseClicked
 
     /**
