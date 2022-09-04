@@ -5,12 +5,16 @@
 package com.mycompany.restcalls;
 
 import com.mashape.unirest.http.HttpResponse;
+import org.json.JSONObject;
 
 /**
  *
  * @author HP
  */
 public class ApiResponse {
+     boolean success;
+    HttpResponse <String> response;
+    JSONObject jsonObject;
 
     public boolean isSuccess() {
         return success;
@@ -20,9 +24,10 @@ public class ApiResponse {
         this.success = success;
     }
     
-    public void ApiResponse(boolean success, HttpResponse<String> response){
+    public void ApiResponse(boolean success, HttpResponse<String> response,JSONObject jsonObject){
         this.success = success;        
         this.response = response;
+        this.jsonObject = jsonObject;
     }
 
     public HttpResponse<String> getResponse() {
@@ -32,9 +37,16 @@ public class ApiResponse {
     public void setResponse(HttpResponse<String> response) {
         this.response = response;
     }
-    boolean success;
-    HttpResponse <String> response;
 
+    public JSONObject getJsonObject() {
+        return jsonObject;
+    }
+
+    public void setJsonObject(JSONObject jsonObject) {
+        this.jsonObject = jsonObject;
+    }
+   
+    
    
     
     

@@ -180,6 +180,25 @@ public class AddUser extends javax.swing.JFrame {
 
         HttpSinglton httpSinglton = new HttpSinglton();
         ApiResponse apiResponse = httpSinglton.postRequest("users", headers, fields);
+        System.out.print("apiResponse"+apiResponse);
+        if(apiResponse.isSuccess()){
+             int result = JOptionPane.showOptionDialog(
+                null,
+                "Success",
+                "User updated successfully",
+                JOptionPane.OK_CANCEL_OPTION,-1, null, null, null
+        );
+        if (result == JOptionPane.OK_CANCEL_OPTION) {
+            System.out.println("User canceled mode selection");
+             UsersListFrame usersListFrame = new UsersListFrame();
+        usersListFrame.setVisible(true);
+        this.dispose();
+        } 
+        
+                        
+                        
+
+        }
     }//GEN-LAST:event_btnAddMouseClicked
 
     /**

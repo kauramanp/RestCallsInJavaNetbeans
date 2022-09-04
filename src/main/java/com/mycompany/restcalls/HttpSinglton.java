@@ -29,8 +29,14 @@ public class HttpSinglton {
         ApiResponse apiResponse = new ApiResponse();
         try {
             httpResponse = Unirest.get(baseUrl + url).asString();
-            apiResponse.setSuccess(true);
-            apiResponse.setResponse(httpResponse);
+             if (httpResponse.getStatus() == 200) {
+                apiResponse.setSuccess(true);
+                apiResponse.setResponse(httpResponse);
+            } else {
+                apiResponse.setSuccess(false);
+                apiResponse.setResponse(httpResponse);
+            }
+         
         } catch (UnirestException exception) {
             apiResponse.setSuccess(false);
             apiResponse.setResponse(httpResponse);
@@ -40,18 +46,22 @@ public class HttpSinglton {
     }
 
     public ApiResponse postRequest(String url, Map<String, String> headers, Map<String, Object> fields) {
-        HttpResponse httpResponse = null;
+         HttpResponse<JsonNode> jsonResponse = null;
         ApiResponse apiResponse = new ApiResponse();
         try {
-            HttpResponse<JsonNode> jsonResponse
-                    = Unirest.post(baseUrl+url)
+            jsonResponse
+                    = Unirest.post(baseUrl + url)
                             .headers(headers).fields(fields).asJson();
-            System.out.println(" jsonResponse "+jsonResponse.getBody());
-            apiResponse.setSuccess(true);
-            apiResponse.setResponse(httpResponse);
+            System.out.println(" jsonResponse " + jsonResponse.getBody());
+            if (jsonResponse.getStatus() == 200) {
+                apiResponse.setSuccess(true);
+                apiResponse.setJsonObject(jsonResponse.getBody().getObject());
+            } else {
+                apiResponse.setSuccess(false);
+                apiResponse.setJsonObject(jsonResponse.getBody().getObject());
+            }
         } catch (UnirestException exception) {
             apiResponse.setSuccess(false);
-            apiResponse.setResponse(httpResponse);
         }
         return apiResponse;
 
